@@ -23,6 +23,7 @@ Ideally, you want it from the side and like 8-10 feet away.
 ## Run locally
 If you want to run this locally, you can do that with
 ```
+cd pose_tracking_web_app
 yarn install
 yarn run dev
 ```
