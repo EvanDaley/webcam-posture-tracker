@@ -13,11 +13,11 @@ Ideally, just visit the website on your phone or a spare laptop and have that po
 
 Live site: https://evandaley.github.io/webcam-posture-tracker/
 
-If the camera is head on, you won't get much data. 
+### If the camera is head on, you won't get much data. 
 ![Head On](profile.png)
 
 
-Ideally, you want it from the side and like 8-10 feet away.
+### Ideally, you want it from the side and like 8-10 feet away.
 ![Side View](side-view.png)
 
 If you want to run this locally, you can do that with
