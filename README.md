@@ -1,12 +1,12 @@
 # PostureTracker
 
-Demo: https://evandaley.github.io/webcam-posture-tracker/
-
 Capture pose data through the webcam with TensorFlow and OpenPose.  
+
+Demo: https://evandaley.github.io/webcam-posture-tracker/
 
 ## Next steps
 - I'd like to add Google Sign-In and post the skeletal data to a firestore database. 
-- Then we can consume that in other future apps for alerting ("hey, your posture is bad right now :P") and reporting ("you spent 10 hours at the computer today and your posture was bad the whole time. XD").
+- Then we can consume that in other future apps for alerting ("your posture is bad now") and reporting ("your posture was bad for ten hours").
 
 ## How to use it
 Ideally, just visit the website on your phone or a spare laptop and have that pointed at you from a distance. 
