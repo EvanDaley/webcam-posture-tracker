@@ -5,7 +5,7 @@ Capture pose data through the webcam with TensorFlow and OpenPose.
 Demo: https://evandaley.github.io/webcam-posture-tracker/
 
 ## Next steps
-- I'd like to add Google Sign-In and post the skeletal data to a firestore database (in progress). 
+- Now that Google OAuth is working, the next step is to post the skeletal data to a firestore database (in progress). 
 - Then we can consume that in other future apps for alerting ("your posture is bad now") and reporting ("your posture was bad for ten hours").
 
 ## How to use it
