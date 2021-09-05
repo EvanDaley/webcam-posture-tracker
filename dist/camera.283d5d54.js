@@ -88053,22 +88053,6 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-/**
- * @license
- * Copyright 2019 Google LLC. All Rights Reserved.
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * =============================================================================
- */
 const videoWidth = 600;
 const videoHeight = 500;
 const stats = new _stats.default();
@@ -88156,16 +88140,15 @@ function setupGui(cameras, net) {
   const gui = new _dat.default.GUI({
     width: 300
   });
+  gui.close();
   let architectureController = null;
 
   guiState[_util.tryResNetButtonName] = function () {
     architectureController.setValue('ResNet50');
-  };
-
-  gui.add(guiState, _util.tryResNetButtonName).name(_util.tryResNetButtonText);
-  (0, _util.updateTryResNetButtonDatGuiCss)(); // The single-pose algorithm is faster and simpler but requires only one
+  }; // The single-pose algorithm is faster and simpler but requires only one
   // person to be in the frame or results will be innaccurate. Multi-pose works
   // for more than 1 person
+
 
   const algorithmController = gui.add(guiState, 'algorithm', ['single-pose', 'multi-pose']); // The input parameters have the most effect on accuracy and speed of the
   // network
