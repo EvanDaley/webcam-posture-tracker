@@ -9,7 +9,7 @@ Demo: https://evandaley.github.io/webcam-posture-tracker/
 - Then we can consume that in other future apps for alerting ("your posture is bad now") and reporting ("your posture was bad for ten hours").
 
 ## How to use it
-Ideally, just visit the website on your phone or a spare laptop and have that pointed at you from a distance. 
+Ideally, just visit the website on your phone or a spare laptop/phone/webcam and have that pointed at you from a distance. 
 
 Live site: https://evandaley.github.io/webcam-posture-tracker/
 
