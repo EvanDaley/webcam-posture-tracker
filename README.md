@@ -1,6 +1,6 @@
 # PostureTracker
 
-Capture pose data through the webcam with TensorFlow and OpenPose.  
+Capture pose data through the webcam with TensorFlow and OpenPose. I'm also requiring Google OAuth Sign-in so that we can save the pose data to firestore and then retreive it with the sister apps for alerting and reporting (in progress).
 
 Demo: https://evandaley.github.io/webcam-posture-tracker/
 
