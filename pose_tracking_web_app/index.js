@@ -10,6 +10,11 @@ import user from './user'
 // const getRedirectResults = authGetRedirectResults()
 setTimeout(() => {
   if (!user.data) {
+    // Skip auth on the demo url
+    if (window.location.href.includes("authless")) {
+      return
+    }
+
     signInIfNeeded()
   } else {
     console.log('signed in with ' + JSON.stringify(user.data))

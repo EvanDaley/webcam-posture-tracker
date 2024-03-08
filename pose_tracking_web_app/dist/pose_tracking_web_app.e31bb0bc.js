@@ -4463,7 +4463,7 @@ const firebaseConfig = {
   messagingSenderId: "543054936986",
   appId: "1:543054936986:web:19cf34e8a33f0446f89823"
 };
-return (0, _app.initializeApp)(firebaseConfig);
+(0, _app.initializeApp)(firebaseConfig);
 },{"firebase/app":"node_modules/firebase/app/dist/index.esm.js"}],"node_modules/@firebase/auth/dist/esm2017/index-9ff0fa9c.js":[function(require,module,exports) {
 "use strict";
 
@@ -104968,6 +104968,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // const getRedirectResults = authGetRedirectResults()
 setTimeout(() => {
   if (!_user.default.data) {
+    // Skip auth on the demo url
+    if (window.location.href.includes("authless")) {
+      return;
+    }
+
     (0, _auth_google_signin.default)();
   } else {
     console.log('signed in with ' + JSON.stringify(_user.default.data));
