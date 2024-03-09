@@ -510,8 +510,9 @@ playButton.addEventListener('click', function() {
 
 // end audio
 
-let tolerance = 40;
-let logFrequency = .1; // seconds
+let pixelTolerance = 105;
+let pixelToleranceWarning = 100;
+let logFrequency = .05; // seconds
 async function processData(keypoints) {
   if (allowLog) {
     setTimeout(() => allowLog = true, logFrequency * 1000); // Reset the flag after 1 second
@@ -520,6 +521,9 @@ async function processData(keypoints) {
       if ((part.part === "leftEar" || part.part === "rightEar")) {
         ear = { part: part.part, position: part.position };
       }
+      if (part.part === "nose") {
+        nose = { part: part.part, position: part.position };
+      }
       if ((part.part === "leftShoulder" || part.part === "rightShoulder")) {
         shoulder = { part: part.part, position: part.position };
       }
@@ -527,19 +531,29 @@ async function processData(keypoints) {
 
     // console.log(shoulder.part, ":", shoulder.position);
     // console.log(ear.part, ":", ear.position);
-    if (ear.part && shoulder.part) {
-      computedDifference = shoulder.position.x - ear.position.x;
+    // calculate distance between shoulder and ear
+    // if (ear.part && shoulder.part) {
+    //   computedDifference = shoulder.position.x - ear.position.x;
+    // }
+    // distance between shoulder and nose
+    if (nose.part && shoulder.part) {
+      computedDifference = shoulder.position.x - nose.position.x;
     }
     console.log(computedDifference);
     allowLog = false; // Prevent further logging
 
-    if (computedDifference > tolerance && !soundIsPlaying) {
+    if (computedDifference > pixelTolerance && !soundIsPlaying) {
       playSound();
     }
+
+    // if (computedDifference > pixelToleranceWarning && !soundIsPlaying) {
+    //   playSound(1, 1000);
+    // }
   }
 }
 let computedDifference = 0;
 let ear = {};
+let nose = {};
 let shoulder = {};
 let allowLog = true;
 /**
