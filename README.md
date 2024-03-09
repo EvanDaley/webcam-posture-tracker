@@ -2,9 +2,7 @@
 
 Capture pose data through the webcam with TensorFlow and OpenPose; post it to firestore for later use.
 
-Demo (no login): https://evandaley.github.io/webcam-posture-tracker/authless
-
-Demo (with google sign-in): https://evandaley.github.io/webcam-posture-tracker/
+Demo: https://evandaley.github.io/webcam-posture-tracker/
 
 ## Next steps
 - Now that Google OAuth is working, the next step is to post the skeletal data to an event stream that can be read from other systems (in progress). I'd like to have one device off to the side, publishing the ML output data only (no images), and the device in front of me showing the metrics. 

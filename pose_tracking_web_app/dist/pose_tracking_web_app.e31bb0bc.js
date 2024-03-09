@@ -104969,10 +104969,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 setTimeout(() => {
   if (!_user.default.data) {
     // Skip auth on the demo url
-    if (window.location.href.includes("authless")) {
-      return;
-    }
-
+    // if (window.location.href.includes("authless")) {
+    //   return
+    // }
+    return;
     (0, _auth_google_signin.default)();
   } else {
     console.log('signed in with ' + JSON.stringify(_user.default.data));
@@ -104983,8 +104983,9 @@ setTimeout(() => {
  *
  */
 
-const videoWidth = 600;
-const videoHeight = 500;
+const scale = 1.5;
+const videoWidth = 600 * scale;
+const videoHeight = 500 * scale;
 const stats = new _stats.default();
 /**
  * Loads a the camera to be used in the demo
@@ -105030,7 +105031,7 @@ const defaultResNetMultiplier = 1.0;
 const defaultResNetStride = 32;
 const defaultResNetInputResolution = 250;
 const guiState = {
-  algorithm: 'multi-pose',
+  algorithm: 'single-pose',
   input: {
     architecture: 'MobileNetV1',
     outputStride: defaultMobileNetStride,
@@ -105227,8 +105228,7 @@ function setupGui(cameras, net) {
 
 function setupFPS() {
   stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
-
-  document.getElementById('main').appendChild(stats.dom);
+  // document.getElementById('main').appendChild(stats.dom);
 }
 /**
  * Feeds an image to posenet to estimate poses - this is where the magic
@@ -105386,6 +105386,8 @@ function detectPoseInRealTime(video, net) {
         if (guiState.output.showBoundingBox) {
           (0, _util.drawBoundingBox)(keypoints, ctx);
         }
+
+        processData(keypoints);
       }
     }); // End monitoring code for frames per second
 
@@ -105395,11 +105397,87 @@ function detectPoseInRealTime(video, net) {
 
   poseDetectionFrame();
 }
+
+let soundIsPlaying = false; // audio
+// Create a function to generate the sound
+
+function playSound(duration = 250, delayAfter = 2000) {
+  // Create an AudioContext
+  soundIsPlaying = true;
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  const audioCtx = new AudioContext(); // Create an oscillator node
+
+  const oscillator = audioCtx.createOscillator(); // Set the type of waveform (sine wave)
+
+  oscillator.type = 'sine'; // Set the frequency of the oscillator (440 Hz for an A note)
+
+  oscillator.frequency.setValueAtTime(440, audioCtx.currentTime); // Connect the oscillator to the audio output (speakers)
+
+  oscillator.connect(audioCtx.destination); // Start the oscillator
+
+  oscillator.start();
+  setTimeout(() => {
+    oscillator.stop();
+  }, duration); // Stop the oscillator after 1 second
+
+  setTimeout(() => {
+    soundIsPlaying = false;
+  }, duration + delayAfter);
+} // Get a reference to the button
+
+
+const playButton = document.getElementById('playButton'); // Add a click event listener to the button
+
+playButton.addEventListener('click', function () {
+  // Call the playSound function when the button is clicked
+  playSound();
+}); // end audio
+
+let tolerance = 40;
+let logFrequency = .1; // seconds
+
+async function processData(keypoints) {
+  if (allowLog) {
+    setTimeout(() => allowLog = true, logFrequency * 1000); // Reset the flag after 1 second
+
+    keypoints.forEach(part => {
+      if (part.part === "leftEar" || part.part === "rightEar") {
+        ear = {
+          part: part.part,
+          position: part.position
+        };
+      }
+
+      if (part.part === "leftShoulder" || part.part === "rightShoulder") {
+        shoulder = {
+          part: part.part,
+          position: part.position
+        };
+      }
+    }); // console.log(shoulder.part, ":", shoulder.position);
+    // console.log(ear.part, ":", ear.position);
+
+    if (ear.part && shoulder.part) {
+      computedDifference = shoulder.position.x - ear.position.x;
+    }
+
+    console.log(computedDifference);
+    allowLog = false; // Prevent further logging
+
+    if (computedDifference > tolerance && !soundIsPlaying) {
+      playSound();
+    }
+  }
+}
+
+let computedDifference = 0;
+let ear = {};
+let shoulder = {};
+let allowLog = true;
 /**
  * Kicks off the demo by loading the posenet model, finding and loading
  * available camera devices, and setting off the detectPoseInRealTime function.
  */
-
 
 async function bindPage() {
   (0, _util.toggleLoadingUI)(true);
